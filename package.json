@@ -1,0 +1,28 @@
+{
+  "name": "hexeye",
+  "version": "1.0.0",
+  "description": "Inspect binary data using a colorful CLI, in Node",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ethanent/hexeye.git"
+  },
+  "keywords": [],
+  "author": "Ethan Davis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ethanent/hexeye/issues"
+  },
+  "homepage": "https://github.com/ethanent/hexeye",
+  "dependencies": {
+    "gar": "^1.0.4",
+    "luxt": "^1.0.0"
+  },
+  "files": [
+    "src/index.js",
+    "src/formatByte.js"
+  ]
+}
