@@ -16,7 +16,7 @@ npm i -g hexeye
 ```
 hexeye <file> [options]
 		--help				Access this menu
-		--rowlen <number>	Specify row length for display
+		--rowlen <number>		Specify row length for display
 		--decimal			View data in decimal instead of hex
 ```
 
