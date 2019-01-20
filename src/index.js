@@ -11,32 +11,44 @@ const format = require(path.join(__dirname, 'formatByte.js'))
 
 if (args.help) {
 	console.log('hexeye <file> [options]')
-	console.log('\t--help\tAccess this menu\n\t--rowlen <number>\tSpecify row length for display\n\t--decimal\tView data in decimal instead of hex')
+	console.log('\t--help\tAccess this menu\n\t--rowlen <number>\tSpecify row length for display\n\t--decimal\tView data in decimal instead of hex\n')
 
-	process.exit(1)
+	console.log('Color Key:\n' + luxt('Green = ASCII text data').green + '\n' + luxt('Yellow = ASCII whitespace / special character data').yellow + '\n' + luxt('Blue = Unknown binary data').blue + '\n')
+
+	process.exit(0)
 }
 
 if (args._.length === 0) {
-	console.error('> Please specify a file. For help, use \'hexeye --help\'.')
+	console.error('> Error: Please specify a file. For help, use \'hexeye --help\'.')
 
 	process.exit(1)
 }
 
 const base = args.decimal ? 10 : 16
-const rowLength = typeof args.rowlen === 'number' ? args.rowlen : 11
-
-process.stdout.write((base === 10 ? '----' : '---').repeat(rowLength) + '\n')
+const rowLength = typeof args.rowlen === 'number' ? args.rowlen : 16
 
 const filePath = path.resolve(process.cwd(), args._[0])
-const fileData = fs.readFileSync(filePath)
+
+let fileData
+
+try {
+	fileData = fs.readFileSync(filePath)
+}
+catch (err) {
+	console.error('> Error: Failed to read file at \'' + filePath + '\'')
+
+	process.exit(1)
+}
+
+process.stdout.write((base === 10 ? '----' : '---').repeat(rowLength) + '\n')
 
 let currentProcessed = []
 
 for (let i = 0; i < fileData.length; i++) {
 	if (fileData[i] >= 32 && fileData[i] <= 126) {
-		process.stdout.write(format(fileData[i], 'blue', base))
+		process.stdout.write(format(fileData[i], 'green', base))
 
-		currentProcessed.push(luxt(fileData.toString('ascii', i, i + 1)).blue)
+		currentProcessed.push(luxt(fileData.toString('ascii', i, i + 1)).green)
 	}
 	else if (fileData[i] === 0) {
 		process.stdout.write(format(fileData[i], 'red', base))
@@ -49,9 +61,9 @@ for (let i = 0; i < fileData.length; i++) {
 		currentProcessed.push(luxt('_').yellow)
 	}
 	else {
-		process.stdout.write(format(fileData[i], 'green', base))
+		process.stdout.write(format(fileData[i], 'blue', base))
 
-		currentProcessed.push(luxt('x').green)
+		currentProcessed.push(luxt('x').blue)
 	}
 
 	if (((i + 1) % rowLength === 0 && i > 0) || i === fileData.length - 1) {
@@ -72,5 +84,3 @@ for (let i = 0; i < fileData.length; i++) {
 }
 
 process.stdout.write((base === 10 ? '----' : '---').repeat(rowLength) + '\n')
-
-//process.stdout.write('Key:\n' + luxt('Blue = ASCII text data').blue + '\n' + luxt('Yellow = ASCII whitespace / special character data').yellow + '\n' + luxt('Green = Unknown binary data').green + '\n')
