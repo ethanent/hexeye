@@ -1,4 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/ethanent/hexeye/master/media/demo1.png" alt="Hexeye image file demo"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/ethanent/hexeye/master/media/demo1.png" width="600px" alt="Hexeye image file demo"/></p>
 
 # Hexeye
 > Inspect binary data using a colorful CLI, in Node
@@ -24,4 +24,4 @@ hexeye <file> [options]
 
 Hexeye can even display your binary files in decimal!
 
-<img src="https://raw.githubusercontent.com/ethanent/hexeye/master/media/demo2.png" alt="Hexeye decimal image demo"/>
+<img src="https://raw.githubusercontent.com/ethanent/hexeye/master/media/demo2.png" width="500px" alt="Hexeye decimal image demo"/>
